@@ -17,6 +17,7 @@ $prices_array = read_file("products.csv")
 $light_hash = $prices_array[0]
 $medium_hash = $prices_array[1]
 $bold_hash = $prices_array[2]
+$global_subtotal = 0
 
 
 #displays items to purchase from a CSV------------------------------------------------------------------------------------------------
@@ -88,8 +89,10 @@ def userInput
     puts "$#{sprintf("%.2f", bold_quantity["subtotal"])} - #{bold_quantity["quantity"]} Bold"
   end
 
+  $global_subtotal = subtotal
   puts nil
   puts "Total: $#{subtotal}"
+  puts nil
 
 end
 #userInput
@@ -104,6 +107,24 @@ def transaction
   puts nil
   userInput
 
+  puts "What is the amount tendered?"
+  amount_tendered = gets.chomp.to_f
+
+  change = (amount_tendered - $global_subtotal)
+
+  if change < 0
+    puts "========================"
+    puts "WARNING: Customer still owes $#{sprintf('%.2f', change.abs)}"
+    puts "========================"
+  else
+    change = sprintf('%.2f', change)
+    puts nil
+    puts "===Thank You!==="
+    puts "The total change due is $#{change}"
+    puts nil
+    puts Time.now.strftime("%m/%d/%Y %l:%M %p")
+    puts "================"
+  end #end if statement
 
 end
 transaction
