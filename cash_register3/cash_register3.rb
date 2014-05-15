@@ -1,23 +1,21 @@
 require 'csv'
 
+#require outside Ruby files in the same directory------------------------------------------------------------
+require_relative 'csv_file'
+require_relative 'transaction'
 
-#read_file reads a CSV file, returns has with SKU, item name, and retail price ($$)----------------------------------------------------
-def read_file(file_name)
-  name_prices_array = []
-  CSV.foreach("products.csv", headers: true) do |row|
-    #hash = Hash[row]
-    row_hash = { "Name" => row["name"], "SKU" => row["SKU"], "Retail Price" => row["retail_price"].to_f}
-    name_prices_array << row_hash
-  end
-  #puts "Array: #{name_prices_array}"
-  return name_prices_array
-end
 #read_file
 $prices_array = read_file("products.csv")
+
+
 $light_hash = $prices_array[0]
 $medium_hash = $prices_array[1]
 $bold_hash = $prices_array[2]
 $global_subtotal = 0
+
+$light_quantity_global = {}
+$medium_quantity_global = {}
+$bold_quantity_global = {}
 
 
 #displays items to purchase from a CSV------------------------------------------------------------------------------------------------
@@ -31,6 +29,7 @@ def displayTransactionOptions
   puts "#{num_items + 1}) Complete Sale"
 end
 #displayTransactionOptions
+
 
 
 
@@ -60,6 +59,8 @@ def userInput
       price = $light_hash["Retail Price"]
       light_quantity["quantity"] += user_quantity
       light_quantity["subtotal"] += $light_hash["Retail Price"]
+      #light_quantity["quantity"] += user_quantity
+      #light_quantity["subtotal"] += $light_hash["Retail Price"]
     when 2
       price = $medium_hash["Retail Price"]
       medium_quantity["quantity"] += user_quantity
@@ -90,6 +91,10 @@ def userInput
   end
 
   $global_subtotal = subtotal
+  $light_quantity_global = light_quantity
+  $medium_quantity_global = medium_quantity
+  $bold_quantity_global = bold_quantity
+
   puts nil
   puts "Total: $#{subtotal}"
   puts nil
@@ -99,35 +104,9 @@ end
 
 
 
-#entire transaction using all other methods----------------------------------------------------------------------------------------
-def transaction
-  puts "Welcome to Jacinda's coffee emporium!"
-  puts nil
-  displayTransactionOptions
-  puts nil
-  userInput
 
-  puts "What is the amount tendered?"
-  amount_tendered = gets.chomp.to_f
 
-  change = (amount_tendered - $global_subtotal)
 
-  if change < 0
-    puts "========================"
-    puts "WARNING: Customer still owes $#{sprintf('%.2f', change.abs)}"
-    puts "========================"
-  else
-    change = sprintf('%.2f', change)
-    puts nil
-    puts "===Thank You!==="
-    puts "The total change due is $#{change}"
-    puts nil
-    puts Time.now.strftime("%m/%d/%Y %l:%M %p")
-    puts "================"
-  end #end if statement
-
-end
-transaction
 
 
 
