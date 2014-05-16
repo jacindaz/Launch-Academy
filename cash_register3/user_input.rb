@@ -13,6 +13,11 @@ def save_input_float(string_prompt)
   return gets.chomp.to_f
 end
 
+def save_input_integer(string_prompt)
+  print "#{string_prompt} "
+  return gets.chomp.to_i
+end
+
 def user_selection
   item_selection = save_input_string("Make a selection: ")
   return item_selection
@@ -36,13 +41,10 @@ end
 
 
 def user_quantity
-  item_quantity = save_input_float("How many? ")
+  item_quantity = save_input_integer("How many? ")
   return item_quantity
 end
 
-def user_select_name_quantity_hash(name, quantity)
-  return {"name" => name, "quantity" => quantity, }
-end
 
 
 

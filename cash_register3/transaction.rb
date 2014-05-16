@@ -42,6 +42,7 @@ def transaction(file_name)
     item_price = return_item_price(item_name, item_hash).to_f
     #puts "Item name: #{item_name}, Item hash: #{item_hash}, Item price: #{item_price}"
 
+
     #calculate and display the subtotal
     subtotal = item_subtotal(item_price, quantity)
     quant_sub_item_hash = array_subtotals_per_item[user_selection_str.to_f - 1]
@@ -49,6 +50,10 @@ def transaction(file_name)
     array_subtotals_per_item[user_selection_str.to_f - 1] = new_item_hash
     #puts "quant_sub_item_hash: #{quant_sub_item_hash}"
     #puts "Array: #{array_subtotals_per_item}"
+
+    #update the quantity in quantity/subtotal array
+    updated_quant_hash = update_quantity(new_item_hash, quantity)
+    array_subtotals_per_item[user_selection_str.to_f - 1] = new_item_hash
 
     #binding.pry
 
@@ -59,7 +64,33 @@ def transaction(file_name)
 
   end #end while loop
 
+  puts "===Sale Complete==="
+  puts nil
 
+  #displays items purchased
+  display_final_transaction(array_subtotals_per_item)
+  puts nil
+  puts "Total: #{formatted_subtotal}"
+  puts nil
+
+  #amount tendered and change calculation
+  amount_tendered = save_input_float("What is the amount tendered?" )
+
+  change = (amount_tendered - total)
+
+  if change < 0
+    puts "========================"
+    puts "WARNING: Customer still owes #{formatted_currency(change.abs)}"
+    puts "========================"
+  else
+    change = sprintf('%.2f', change)
+    puts nil
+    puts "=======Thank You!======="
+    puts "The total change due is $#{change}"
+    puts nil
+    puts Time.now.strftime("%m/%d/%Y %l:%M %p")
+    puts "========================"
+  end #end if statement
 
 
 end

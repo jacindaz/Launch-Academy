@@ -45,10 +45,6 @@ def update_quantity(item_hash, quantity_to_add)
 end
 
 
-#updates the array of hashes of items w/ quantity and subtotal
-def update_quant_subtotal(original_hash, updated_array_of_hashes)
-
-end
 
 def return_item_price(item_name, item_hash)
   item_price = item_hash["Retail Price"]
@@ -89,7 +85,11 @@ def displayTransactionOptions(array)
 end
 #displayTransactionOptions([{"Name"=>"Light", "SKU"=>"120945", "Retail Price"=>5.0},{"Name"=>"Medium", "SKU"=>"679340", "Retail Price"=>7.5},{"Name"=>"Bold", "SKU"=>"328745", "Retail Price"=>9.75}])
 
-
+def display_final_transaction(array)
+  array.each do |nested_hash|
+    puts "#{formatted_currency(nested_hash["subtotal"])} - #{nested_hash["quantity"]} #{nested_hash["name"]}"
+  end #end array of hashes each loop
+end
 
 
 #OLD METHODS - DO NOT USE --------------------------------------------------------
