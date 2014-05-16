@@ -44,7 +44,16 @@ def transaction(file_name)
 
     #calculate and display the subtotal
     subtotal = item_subtotal(item_price, quantity)
-    formatted_subtotal = formatted_currency(subtotal)
+    quant_sub_item_hash = array_subtotals_per_item[user_selection_str.to_f - 1]
+    new_item_hash = update_subtotal(quant_sub_item_hash, subtotal)
+    array_subtotals_per_item[user_selection_str.to_f - 1] = new_item_hash
+    #puts "quant_sub_item_hash: #{quant_sub_item_hash}"
+    #puts "Array: #{array_subtotals_per_item}"
+
+    #binding.pry
+
+    total = total(array_subtotals_per_item)
+    formatted_subtotal = formatted_currency(total)
     puts "Subtotal: #{formatted_subtotal}"
     puts nil
 

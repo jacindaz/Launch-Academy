@@ -45,6 +45,11 @@ def update_quantity(item_hash, quantity_to_add)
 end
 
 
+#updates the array of hashes of items w/ quantity and subtotal
+def update_quant_subtotal(original_hash, updated_array_of_hashes)
+
+end
+
 def return_item_price(item_name, item_hash)
   item_price = item_hash["Retail Price"]
   return item_price
@@ -88,75 +93,6 @@ end
 
 
 #OLD METHODS - DO NOT USE --------------------------------------------------------
-
-#select, quantity, subtotal------------------------------------------------------------------------------------------------
-#returns hash with name, quantity, and subtotal for each coffee
-def user_input
-  light_quantity = { "quantity" => 0, "subtotal" => 1}
-  medium_quantity = { "quantity" => 0, "subtotal" => 1}
-  bold_quantity = { "quantity" => 0, "subtotal" => 1}
-  subtotal = 0
-
-  done = false
-
-  while not done
-    user_selection
-
-    if user_selection == 4
-      break
-    end
-
-    user_quantity
-
-    #return the appropriate price based on the name of the coffee selected (by user)
-    case user_selection
-    when 1
-      price = $light_hash["Retail Price"]
-      light_quantity["quantity"] += user_quantity
-      light_quantity["subtotal"] += $light_hash["Retail Price"]
-      #light_quantity["quantity"] += user_quantity
-      #light_quantity["subtotal"] += $light_hash["Retail Price"]
-    when 2
-      price = $medium_hash["Retail Price"]
-      medium_quantity["quantity"] += user_quantity
-      medium_quantity["subtotal"] += $medium_hash["Retail Price"]
-    when 3
-      price = $bold_hash["Retail Price"]
-      bold_quantity["quantity"] += user_quantity
-      bold_quantity["subtotal"] += $bold_hash["Retail Price"]
-    end
-
-    subtotal += (user_quantity * price)
-    #puts "Selection: #{user_selection}, Quantity: #{user_quantity}, Subtotal: #{subtotal}"
-    puts "Subtotal: $#{sprintf("%.2f", subtotal)}"
-    puts nil
-  end #end while loop, only when user selection is 4
-
-  puts "===Sale Complete==="
-  puts nil
-
-  if light_quantity["quantity"] != 0
-    puts "$#{sprintf("%.2f", light_quantity["subtotal"])} - #{light_quantity["quantity"]} Light"
-  end
-  if medium_quantity["quantity"] != 0
-    puts "$#{sprintf("%.2f", medium_quantity["subtotal"])} - #{medium_quantity["quantity"]} Medium"
-  end
-  if bold_quantity["quantity"] != 0
-    puts "$#{sprintf("%.2f", bold_quantity["subtotal"])} - #{bold_quantity["quantity"]} Bold"
-  end
-
-  $global_subtotal = subtotal
-  $light_quantity_global = light_quantity
-  $medium_quantity_global = medium_quantity
-  $bold_quantity_global = bold_quantity
-
-  puts nil
-  puts "Total: $#{subtotal}"
-  puts nil
-
-end
-#userInput
-
 
 #returns an array of hashes, containing the item quantity and subtotal
 # def user_select_name_quantity_array(item_name, items_array_of_hashes, quantity=0)
