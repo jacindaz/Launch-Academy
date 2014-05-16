@@ -42,26 +42,10 @@ def transaction(file_name)
     item_price = return_item_price(item_name, item_hash).to_f
     #puts "Item name: #{item_name}, Item hash: #{item_hash}, Item price: #{item_price}"
 
-    #binding.pry
-    case user_selection_str
-    when "1"
-      array_subtotals_per_item[0]["quantity"] += quantity
-      array_subtotals_per_item[0]["subtotal"] +=
-    when "2"
-      item_name = prices_array[1]["Name"]
-    when "3"
-      item_name = prices_array[2]["Name"]
-    end #end case statement
-
-    #hash containing name of item, quantity, and subtotal
-    #array_subtotals_per_item = user_select_name_quantity_array(prices_array, quantity)
-
-
-    #binding.pry
-
     #calculate and display the subtotal
-    subtotal = total(array_subtotals_per_item)
-    puts "Subtotal: #{formatted_currency(subtotal)}"
+    subtotal = item_subtotal(item_price, quantity)
+    formatted_subtotal = formatted_currency(subtotal)
+    puts "Subtotal: #{formatted_subtotal}"
     puts nil
 
   end #end while loop
