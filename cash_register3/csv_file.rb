@@ -1,7 +1,15 @@
+require 'csv'
+require 'pry'
+
+#require outside Ruby files in the same directory------------------------------------------------------------
+require_relative 'transaction'
+require_relative 'cash_register3'
+require_relative 'user_input'
+
 #read_file reads a CSV file, returns has with SKU, item name, and retail price ($$)----------------------------------------------------
 def read_file(file_name)
   name_prices_array = []
-  CSV.foreach("products.csv", headers: true) do |row|
+  CSV.foreach(file_name, headers: true) do |row|
     #hash = Hash[row]
     row_hash = { "Name" => row["name"], "SKU" => row["SKU"], "Retail Price" => row["retail_price"].to_f}
     name_prices_array << row_hash

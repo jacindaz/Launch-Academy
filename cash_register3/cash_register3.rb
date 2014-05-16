@@ -1,36 +1,53 @@
 require 'csv'
+require 'pry'
 
 #require outside Ruby files in the same directory------------------------------------------------------------
 require_relative 'csv_file'
 require_relative 'transaction'
+require_relative 'user_input'
 
 #read_file
-$prices_array = read_file("products.csv")
+prices_array = read_file("products.csv")
 
 
-$light_hash = $prices_array[0]
-$medium_hash = $prices_array[1]
-$bold_hash = $prices_array[2]
-$global_subtotal = 0
+# $light_hash = $prices_array[0]
+# $medium_hash = $prices_array[1]
+# $bold_hash = $prices_array[2]
+# $global_subtotal = 0
 
-$light_quantity_global = {}
-$medium_quantity_global = {}
-$bold_quantity_global = {}
+
+def formatted_currency(string)
+  return "$#{sprintf("%.2f", string)}"
+end
+#formatted_currency("5")
 
 
 #displays items to purchase from a CSV------------------------------------------------------------------------------------------------
-def displayTransactionOptions
+def displayTransactionOptions(array)
   num_items = 1
 
-  $prices_array.each do |nested_hash|
-    puts "#{num_items}) Add item - $#{sprintf("%.2f", nested_hash["Retail Price"])} - #{nested_hash["Name"]}"
+  array.each do |nested_hash|
+    puts "#{num_items}) Add item - $#{string(nested_hash["Retail Price"])} - #{nested_hash["Name"]}"
     num_items += 1
   end #end array of hashes each loop
   puts "#{num_items + 1}) Complete Sale"
 end
-#displayTransactionOptions
+#displayTransactionOptions(prices_array)
 
+def user_selection
+  item_selection = save_input_float("Make a selection: ")
+  return item_selection
+end
+#user_selection
 
+def user_quantity
+  item_quantity = save_input_float("How many? ")
+  return item_quantity
+end
+
+def item_subtotal
+
+end
 
 
 #select, quantity, subtotal------------------------------------------------------------------------------------------------
@@ -40,6 +57,7 @@ def userInput
   medium_quantity = { "quantity" => 0, "subtotal" => 1}
   bold_quantity = { "quantity" => 0, "subtotal" => 1}
   subtotal = 0
+
   done = false
 
   while not done
