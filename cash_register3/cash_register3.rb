@@ -6,7 +6,7 @@ require 'pry'
 def user_select_name_quantity_array(array_of_hashes, quantity=0, subtotal=0)
   array_quantity_subtotal = []
   array_of_hashes.each do |nested_hash|
-    new_hash = { "name" =>  nested_hash["Name"], "quantity" => quantity, "subtotal" => subtotal}
+    new_hash = { "name" =>  nested_hash["name"], "quantity" => quantity, "subtotal" => subtotal}
     array_quantity_subtotal << new_hash
   end #end each loop of nested hashes
   return array_quantity_subtotal
@@ -91,19 +91,3 @@ def display_final_transaction(array)
   end #end array of hashes each loop
 end
 
-
-#OLD METHODS - DO NOT USE --------------------------------------------------------
-
-#returns an array of hashes, containing the item quantity and subtotal
-# def user_select_name_quantity_array(item_name, items_array_of_hashes, quantity=0)
-#   array_of_subtotals = []
-
-#   item_hash = return_item_hash(item_name, items_array_of_hashes)
-#   item_price = return_item_price(item_name, item_hash)
-
-#   subtotal = item_subtotal(item_price, quantity)
-#   hash_quantity_subtotal = {"name" => item_name, "quantity" => quantity, "subtotal" => subtotal }
-#   array_of_subtotals << hash_quantity_subtotal
-#   return array_of_subtotals
-# end
-#user_select_name_quantity_array("Light", prices_array, 2)

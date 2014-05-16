@@ -92,37 +92,25 @@ def transaction(file_name)
     puts "========================"
   end #end if statement
 
+  binding.pry
 
+  return array_subtotals_per_item
 end
-transaction("products.csv")
 
 
 
+#writes to a CSV file from a hash--------------------------------------------------
+def writeCSV(file_name)
+  generated_array = transaction(file_name)
+  array_from_csv = read_file(file_name)
+  final_hash = merge_arrays(array_from_csv, generated_array)
+  binding.pry
 
-# def transaction
-#   puts "Welcome to Jacinda's coffee emporium!"
-#   puts nil
-#   displayTransactionOptions
-#   puts nil
-#   userInput
+  CSV.open("results.csv", "w") do |row|
+    final_hash.each do |nested_hash|
+      row << [nested_hash["SKU"], nested_hash["quantity"]]
+    end #end each nested_hash loop
+  end #end csv loop
+end
+writeCSV("products.csv")
 
-#   puts "What is the amount tendered?"
-#   amount_tendered = gets.chomp.to_f
-
-#   change = (amount_tendered - $global_subtotal)
-
-#   if change < 0
-#     puts "========================"
-#     puts "WARNING: Customer still owes $#{sprintf('%.2f', change.abs)}"
-#     puts "========================"
-#   else
-#     change = sprintf('%.2f', change)
-#     puts nil
-#     puts "===Thank You!==="
-#     puts "The total change due is $#{change}"
-#     puts nil
-#     puts Time.now.strftime("%m/%d/%Y %l:%M %p")
-#     puts "================"
-#   end #end if statement
-
-# end
