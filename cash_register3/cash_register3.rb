@@ -1,24 +1,30 @@
-require 'csv'
 require 'pry'
 
-#require outside Ruby files in the same directory------------------------------------------------------------
- require_relative 'csv_file'
- require_relative 'transaction'
- require_relative 'user_input'
-#require 'require_all'
 
-#Dir["/path/to/directory/*.rb"].each {|file| require file }
+def user_select_name_quantity_array(item_name, items_array_of_hashes, quantity)
+  item_hash = return_item_hash(item_name, items_array_of_hashes)
+  item_price = return_item_price(item_name, item_hash)
 
-#Trying to pull from the csv_file.rb file, but getting errors for the following:
-#read_file
-#prices_array = read_file("products.csv")
-#puts read_file("products.csv")
+  subtotal = item_subtotal(item_price, quantity)
+  return {"name" => item_name, "quantity" => quantity, "subtotal" => subtotal }
+end
+#user_select_name_quantity_array("Light", prices_array, 2)
 
+def return_item_price(item_name, item_hash)
+  item_price = item_hash["Retail Price"]
+  return item_price
+end
 
-# $light_hash = $prices_array[0]
-# $medium_hash = $prices_array[1]
-# $bold_hash = $prices_array[2]
-# $global_subtotal = 0
+def return_item_hash(item_name, array_of_hashes)
+  case item_name
+  when "Light"
+    return array_of_hashes[0]
+  when "Medium"
+    return array_of_hashes[1]
+  when "Bold"
+    return array_of_hashes[2]
+  end
+end
 
 
 def formatted_currency(string)
@@ -29,44 +35,21 @@ end
 
 #displays items to purchase from a CSV------------------------------------------------------------------------------------------------
 def displayTransactionOptions(array)
-  binding.pry
   num_items = 1
 
   array.each do |nested_hash|
-    puts "#{num_items}) Add item - $#{string(nested_hash["Retail Price"])} - #{nested_hash["Name"]}"
+    puts "#{num_items}) Add item - #{formatted_currency(nested_hash["Retail Price"])} - #{nested_hash["Name"]}"
     num_items += 1
   end #end array of hashes each loop
-  puts "#{num_items + 1}) Complete Sale"
+  puts "#{num_items}) Complete Sale"
 end
-#displayTransactionOptions(prices_array)
+#displayTransactionOptions([{"Name"=>"Light", "SKU"=>"120945", "Retail Price"=>5.0},{"Name"=>"Medium", "SKU"=>"679340", "Retail Price"=>7.5},{"Name"=>"Bold", "SKU"=>"328745", "Retail Price"=>9.75}])
 
-def user_selection
-  item_selection = save_input_string("Make a selection: ")
-  return item_selection
-end
-#user_selection
-
-def user_selection_name(selection_str)
-  case selection_str
-  when "1"
-    return "Light"
-  when "2"
-    return "Medium"
-  when "3"
-    return "Bold"
-  when "4"
-    return "Done"
-  end
-end
-#puts user_selection_name("1")
-
-def user_quantity
-  item_quantity = save_input_float("How many? ")
-  return item_quantity
-end
 
 #returns the subtotal
 def item_subtotal(float_price, quantity)
+  float_price = float_price.to_f
+  quantity = quantity.to_f
   return (float_price * quantity)
 end
 

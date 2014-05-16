@@ -1,10 +1,4 @@
-require 'csv'
 require 'pry'
-
-#require outside Ruby files in the same directory------------------------------------------------------------
-require_relative 'csv_file'
-require_relative 'cash_register3'
-require_relative 'transaction'
 
 
 def save_input_string(string_prompt)
@@ -45,3 +39,13 @@ def user_quantity
   item_quantity = save_input_float("How many? ")
   return item_quantity
 end
+
+def user_select_name_quantity_hash(name, quantity)
+  return {"name" => name, "quantity" => quantity, }
+end
+
+
+
+
+
+
