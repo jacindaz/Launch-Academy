@@ -2,12 +2,17 @@ require 'csv'
 require 'pry'
 
 #require outside Ruby files in the same directory------------------------------------------------------------
-require_relative 'csv_file'
-require_relative 'transaction'
-require_relative 'user_input'
+ require_relative 'csv_file'
+ require_relative 'transaction'
+ require_relative 'user_input'
+#require 'require_all'
 
+#Dir["/path/to/directory/*.rb"].each {|file| require file }
+
+#Trying to pull from the csv_file.rb file, but getting errors for the following:
 #read_file
-prices_array = read_file("products.csv")
+#prices_array = read_file("products.csv")
+#puts read_file("products.csv")
 
 
 # $light_hash = $prices_array[0]
@@ -19,11 +24,12 @@ prices_array = read_file("products.csv")
 def formatted_currency(string)
   return "$#{sprintf("%.2f", string)}"
 end
-#formatted_currency("5")
+#puts formatted_currency("5")
 
 
 #displays items to purchase from a CSV------------------------------------------------------------------------------------------------
 def displayTransactionOptions(array)
+  binding.pry
   num_items = 1
 
   array.each do |nested_hash|
@@ -35,24 +41,46 @@ end
 #displayTransactionOptions(prices_array)
 
 def user_selection
-  item_selection = save_input_float("Make a selection: ")
+  item_selection = save_input_string("Make a selection: ")
   return item_selection
 end
 #user_selection
+
+def user_selection_name(selection_str)
+  case selection_str
+  when "1"
+    return "Light"
+  when "2"
+    return "Medium"
+  when "3"
+    return "Bold"
+  when "4"
+    return "Done"
+  end
+end
+#puts user_selection_name("1")
 
 def user_quantity
   item_quantity = save_input_float("How many? ")
   return item_quantity
 end
 
-def item_subtotal
+#returns the subtotal
+def item_subtotal(float_price, quantity)
+  return (float_price * quantity)
+end
 
+def user_selection_quant_subtotal_block
+  user_selection
+  if user_selection != 4
+      user_quantity
+  end
 end
 
 
 #select, quantity, subtotal------------------------------------------------------------------------------------------------
 #returns hash with name, quantity, and subtotal for each coffee
-def userInput
+def user_input
   light_quantity = { "quantity" => 0, "subtotal" => 1}
   medium_quantity = { "quantity" => 0, "subtotal" => 1}
   bold_quantity = { "quantity" => 0, "subtotal" => 1}
@@ -61,15 +89,13 @@ def userInput
   done = false
 
   while not done
-    puts "Make a selection: "
-    user_selection = gets.chomp.to_i
+    user_selection
 
     if user_selection == 4
       break
     end
 
-    puts "How many? "
-    user_quantity = gets.chomp.to_i
+    user_quantity
 
     #return the appropriate price based on the name of the coffee selected (by user)
     case user_selection
