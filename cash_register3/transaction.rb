@@ -10,9 +10,11 @@ require_relative 'user_input'
 
 #entire transaction using all other methods----------------------------------------------------------------------------------------
 def transaction(file_name)
-  #binding.pry
+
   prices_array = read_file(file_name)
   #puts prices_array
+  array_subtotals_per_item = user_select_name_quantity_array(prices_array)
+  #puts "Array with item quantity and subtotal: #{array_subtotals_per_item}"
 
   puts "Welcome to Jacinda's coffee emporium!"
   puts nil
@@ -23,32 +25,48 @@ def transaction(file_name)
 
   done = false
   while not done
-    #binding.pry
     #user selects item
-    user_selection_str = user_selection_name(user_selection)
+    user_selection_str = save_input_string("Make a selection: ")
 
     #break if user selects done
-    if user_selection_str == "Done"
+    if user_selection_str == "4"
       done = true
       break
     end
+
+    #user types quantity of item
+    quantity = user_quantity
+
+    item_name = user_selection_name(user_selection_str)
+    item_hash = return_item_hash(item_name, prices_array)
+    item_price = return_item_price(item_name, item_hash).to_f
+    #puts "Item name: #{item_name}, Item hash: #{item_hash}, Item price: #{item_price}"
+
     #binding.pry
     case user_selection_str
-    when "Light"
-      quantity = user_quantity
-      item_name = prices_array[0]["Name"]
-    when "Medium"
-      quantity = user_quantity
+    when "1"
+      array_subtotals_per_item[0]["quantity"] += quantity
+      array_subtotals_per_item[0]["subtotal"] +=
+    when "2"
       item_name = prices_array[1]["Name"]
-    when "Bold"
-      quantity = user_quantity
+    when "3"
       item_name = prices_array[2]["Name"]
     end #end case statement
+
+    #hash containing name of item, quantity, and subtotal
+    #array_subtotals_per_item = user_select_name_quantity_array(prices_array, quantity)
+
+
+    #binding.pry
+
+    #calculate and display the subtotal
+    subtotal = total(array_subtotals_per_item)
+    puts "Subtotal: #{formatted_currency(subtotal)}"
+    puts nil
+
   end #end while loop
 
-  #hash containing name of item, quantity, and subtotal
-  some_hash = user_select_name_quantity_array(item_name, prices_array, quantity)
-  puts "Item quantity and subtotal: #{some_hash}"
+
 
 
 end
