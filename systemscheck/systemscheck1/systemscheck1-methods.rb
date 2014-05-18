@@ -32,8 +32,6 @@ def compare_elements(array)
     #puts "I am popping last element from array: #{array}"
   end
 
-  #binding.pry
-
   array.each do |num|
     #puts "num: #{num}, Original array: #{array}"
     if array[first_index] == nil
@@ -61,7 +59,7 @@ def compare_elements(array)
   return new_array
 
 end
-compare_elements(scores)
+
 
 
 
