@@ -20,48 +20,6 @@ def add_last_element(last_element, array)
   end
 end
 
-def compare_elements(array)
-  new_array = []
-  first_index = 0
-  second_index = 1
-  last_element = nil
-
-  last_element = return_last_element(array)
-  if last_element != nil
-    pop_last_element(array)
-    #puts "I am popping last element from array: #{array}"
-  end
-
-  array.each do |num|
-    #puts "num: #{num}, Original array: #{array}"
-    if array[first_index] == nil
-      #puts "Array.last: #{array.last}"
-      break
-    elsif array[first_index] > array[second_index]
-      new_array[first_index] = array[second_index]
-      new_array[second_index] = array[first_index]
-    elsif array[first_index] < array[second_index]
-      new_array[first_index] = array[first_index]
-      new_array[second_index] = array[second_index]
-    end #end if statement
-    first_index += 2
-    second_index += 2
-    #puts "index1: #{first_index}, index2: #{second_index}, array: #{new_array}"
-    #puts nil
-  end #end each loop
-
-  if last_element != nil
-    #puts "I'm adding last element back: #{last_element}"
-    add_last_element(last_element, new_array)
-  end
-
-  puts "Final array: #{new_array}"
-  return new_array
-
-end
-
-
-
 
 def swap_num(array)
   num_placeholder = array[0]
@@ -116,3 +74,63 @@ def merge_sort(array)
   sorted_array = array
   return sorted_array
 end
+
+
+#step2 of merge sort
+def combine_arrays(array_of_arrays)
+  #split arrays
+  #compare array1[0] and array2[0]
+  #if array1[0] is bigger, put array2[0] in new array
+  #then compare array1[0] and array2[2]
+
+  array1 = array_of_arrays[0]
+  array2 = array_of_arrays[1]
+
+
+
+end
+
+
+#step 1 of merge sort - returns an array of 2-element arrays-------------------------
+def compare_2elements(array)
+  array_of_arrays = []
+  first_index = 0
+  second_index = 1
+  last_element = nil
+
+  last_element = return_last_element(array)
+  if last_element != nil
+    pop_last_element(array)
+    #puts "I am popping last element from array: #{array}"
+  end
+
+  array.each do |num|
+    #puts "num: #{num}, Original array: #{array}"
+    if array[first_index] == nil
+      #puts "Array.last: #{array.last}"
+      break
+    elsif array[first_index] > array[second_index]
+      inner_array = [array[second_index], array[first_index]]
+    elsif array[first_index] < array[second_index]
+      inner_array = [array[first_index], array[second_index]]
+    end #end if statement
+    array_of_arrays << inner_array
+    first_index += 2
+    second_index += 2
+
+    puts "index1: #{first_index}, index2: #{second_index}, array: #{array_of_arrays}"
+    puts nil
+  end #end each loop
+
+  if last_element != nil
+    #puts "I'm adding last element back: #{last_element}"
+    inner_array = []
+    add_last_element(last_element, inner_array)
+    array_of_arrays << inner_array
+  end
+
+  puts "Final array: #{array_of_arrays}"
+  return array_of_arrays
+
+end
+#compare_2elements(scores)
