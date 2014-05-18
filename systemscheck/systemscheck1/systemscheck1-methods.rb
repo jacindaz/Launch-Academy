@@ -104,18 +104,20 @@ def combine_arrays(array_of_arrays, index1, index2)
   end #end while loop
 
   if (array1[0] != nil)
-    nested_array << array1[0]
+    nested_array << array1
   elsif (array2[0] != nil)
-    nested_array << array2[0]
+    nested_array << array2
   end
 
   merged_array << nested_array
-  puts "Exit if statement, merged array: #{merged_array}"
-
+  flatten_array = merged_array.flatten
+  puts "Exit if statement, merged array: #{flatten_array}"
+  return flatten_array
 end
 #combine_arrays([[75, 100], [65, 85]])
 #combine_arrays([[75, 100], [65, 85], [84, 87]])
 #combine_arrays([[75, 100], [65, 85], [84, 87], [20, 95]], 2, 3)
+combine_arrays([[75, 100], [65, 85], [84, 87], [20]], 2, 3)
 
 
 #step 1 of merge sort - returns an array of 2-element arrays-------------------------
