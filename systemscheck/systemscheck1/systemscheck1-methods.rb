@@ -77,49 +77,45 @@ end
 
 
 #step2 of merge sort
-def combine_arrays(array_of_arrays)
+def combine_arrays(array_of_arrays, index1, index2)
   #split arrays
   #compare array1[0] and array2[0]
   #if array1[0] is bigger, put array2[0] in new array
   #then compare array1[0] and array2[2]
 
-  num_elements_per_array = array_of_arrays[0].length
-  num_nested_arrays = array_of_arrays.length
-
   merged_array = []
   nested_array = []
-  merged_array_index = 0
-
-  array1 = array_of_arrays[0]
-  array2 = array_of_arrays[1]
-  array1_index = 0
-  array2_index = 0
+  array1 = array_of_arrays[index1]
+  array2 = array_of_arrays[index2]
 
   #binding.pry
 
-  while (array1_index < num_nested_arrays) && (array2_index < num_nested_arrays)
+  while (array1[0] != nil) && (array2[0] != nil)
     puts "While loop, array1: #{array1}, array2: #{array2}"
-    puts "index1: #{array1_index}, index2: #{array2_index}, merge index: #{merged_array_index}"
-    if array1[array1_index] < array2[array2_index]
-      nested_array << array1[merged_array_index]
+    if array1[0] < array2[0]
+      nested_array << array1[0]
       array1.shift
-      #array1_index += 1
-    elsif array1[array1_index] > array2[array2_index]
-      nested_array << array2[array2_index]
+    elsif array1[0] > array2[0]
+      nested_array << array2[0]
       array2.shift
-      #array2_index += 1
     end #end if/else statement
-    #merged_array_index += 1
     puts "Nested array: #{nested_array}"
     puts nil
   end #end while loop
+
+  if (array1[0] != nil)
+    nested_array << array1[0]
+  elsif (array2[0] != nil)
+    nested_array << array2[0]
+  end
 
   merged_array << nested_array
   puts "Exit if statement, merged array: #{merged_array}"
 
 end
-combine_arrays([[75, 100], [65, 85]])
+#combine_arrays([[75, 100], [65, 85]])
 #combine_arrays([[75, 100], [65, 85], [84, 87]])
+#combine_arrays([[75, 100], [65, 85], [84, 87], [20, 95]], 2, 3)
 
 
 #step 1 of merge sort - returns an array of 2-element arrays-------------------------
