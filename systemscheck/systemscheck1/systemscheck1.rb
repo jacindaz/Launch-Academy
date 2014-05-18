@@ -24,3 +24,9 @@ end
 
 def min(array)
 end
+
+
+def merge_sort(array)
+  compare_elements(array)
+end
+merge_sort(scores)

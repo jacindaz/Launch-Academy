@@ -29,14 +29,17 @@ def compare_elements(array)
   last_element = return_last_element(array)
   if last_element != nil
     pop_last_element(array)
-    puts "I am popping last element from array: #{array}"
+    #puts "I am popping last element from array: #{array}"
   end
 
   #binding.pry
 
   array.each do |num|
-    puts "num: #{num}, Original array: #{array}"
-    if array[first_index] > array[second_index]
+    #puts "num: #{num}, Original array: #{array}"
+    if array[first_index] == nil
+      #puts "Array.last: #{array.last}"
+      break
+    elsif array[first_index] > array[second_index]
       new_array[first_index] = array[second_index]
       new_array[second_index] = array[first_index]
     elsif array[first_index] < array[second_index]
@@ -45,16 +48,17 @@ def compare_elements(array)
     end #end if statement
     first_index += 2
     second_index += 2
-    puts "index1: #{first_index}, index2: #{second_index}, array: #{new_array}"
-    puts nil
+    #puts "index1: #{first_index}, index2: #{second_index}, array: #{new_array}"
+    #puts nil
   end #end each loop
 
   if last_element != nil
-    puts "I'm adding last element back: #{last_element}"
+    #puts "I'm adding last element back: #{last_element}"
     add_last_element(last_element, new_array)
   end
 
   puts "Final array: #{new_array}"
+  return new_array
 
 end
 compare_elements(scores)
