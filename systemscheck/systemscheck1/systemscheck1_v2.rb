@@ -1,7 +1,12 @@
 require 'pry'
 
-scores = [75, 100, 85, 65, 84, 87, 95, 20]
-small_list = [85, 65, 100, 75, 20]
+
+scores = [75, 100, 85, 65, 84, 87, 95]
+scores2 = [98, 32, 75, 60, 54, 88, 100, 27, 81]
+all_same = [1,2,3,4,5,6,7]
+reverse_sorted = [6,5,4,3,2,1]
+one_out_of_order = [5,6,7,8,9,10, 4]
+one_out_of_order_reverse = [10,5,6,7,8,9]
 
 
 
@@ -71,11 +76,14 @@ end
 
 
 def avg_max_min(array)
+  sorted_array = sort_swap_array(array)
+  puts "For sorted array: #{sorted_array}"
+
   average = average(array)
   max = max(array)
   min = min(array)
 
-  puts "For array: #{array}"
+
   puts "Average: #{average}, Min: #{min}, Max: #{max}"
 end
-avg_max_min(scores)
+avg_max_min(reverse_sorted)
