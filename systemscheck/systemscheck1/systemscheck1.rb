@@ -11,7 +11,7 @@ require 'pry'
 scores = [75, 100, 85, 65, 84, 87, 95]
 scores2 = [98, 32, 75, 60, 54, 88, 100, 27, 81]
 all_same = [1,2,3,4,5,6,7]
-reverse_sorted = [5,4,3,2,1]
+reverse_sorted = [6, 5,4,3,2,1]
 one_out_of_order = [5,6,7,8,9,10, 4]
 one_out_of_order_reverse = [10,5,6,7,8,9]
 
@@ -37,9 +37,16 @@ end
 
 def merge_sort(array)
   #step 1 of merge sort, returns an array of arrays
-  compare_elements2(array)
+  array_2element = compare_2elements(array)
+  puts "Array of 2-element arrays: #{array_2element}"
 
   #step 2 - split into
+  step2 = combine_arrays(array_2element, 0, 1)
+  puts "Step 2: #{step2}"
+
+  if array_2element.last != nil
+    step3 = add_last_array(combine_arrays(step2, 0, 1))
+
 end
 #merge_sort(scores)
 merge_sort(reverse_sorted)
