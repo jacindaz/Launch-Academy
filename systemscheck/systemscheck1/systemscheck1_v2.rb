@@ -1,6 +1,7 @@
 require 'pry'
 
 scores = [75, 100, 85, 65, 84, 87, 95, 20]
+small_list = [85, 65, 100, 75, 20]
 
 
 
@@ -26,27 +27,37 @@ def sort_swap_array(array)
   num1_index = 0
   num2_index = 1
 
-  array.each do |num|
+  done = false
 
-    index = 0
-    puts "array: #{array}, num: #{num}, next num: #{array[index + 1]}, index: #{index}"
-    #binding.pry
+  while array[num2_index] != nil
+    if array[num1_index] > array[num2_index]
+      save_num1 = array[num1_index]
+      array[num1_index] = array[num2_index]
+      array[num2_index] = save_num1
 
-    if (num != array.last) && (num > array[index + 1])
-      puts "if statement,num: #{num} array+1: #{array[index + 1]}"
+      save_index1 = num1_index
+      save_index2 = num2_index
+      while (array[num1_index] < array[num1_index - 1]) && (num1_index > 0)
+        puts "index1: #{num1_index}, index2: #{num2_index}, array: #{array}"
+        puts "inner while, index1: #{num1_index - 1}, index2: #{num1_index}"
+        save_num1 = array[num1_index - 1]
+        array[num1_index - 1] = array[num1_index]
+        array[num1_index] = save_num1
+        num1_index -= 1
+        num2_index -= 1
+      end #end inner while loop
+      num1_index = save_index1
+      num2_index = save_index2
+    end
+      puts "index1: #{num1_index}, index2: #{num2_index}, array: #{array}"
       puts nil
-      while (num != array.last) && (num > array[index + 1])
-        placeholder = num
-        array[index] = array[index + 1]
-        array[index + 1] = num
-        index += 1
-        puts "while loop, array: #{array}, index: #{index}, num: #{num}"
-      end #end while statement
-    else
-      index += 1
-    end #end if loop
-  end #each each loop
+
+      num1_index += 1
+      num2_index += 1
+
+  end
 
 end
 
-sort_swap_array(scores)
+
+sort_swap_array(small_list)
