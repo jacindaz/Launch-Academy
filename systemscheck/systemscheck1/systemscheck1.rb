@@ -36,16 +36,25 @@ end
 
 
 def merge_sort(array)
+  puts "Original array: #{array}"
+
   #step 1 of merge sort, returns an array of arrays
   array_2element = compare_2elements(array)
   puts "Array of 2-element arrays: #{array_2element}"
+  puts "Original array after split into 2-element arrays: #{array}"
+  puts nil
 
   #step 2 - split into
   step2 = combine_arrays(array_2element, 0, 1)
   puts "Step 2: #{step2}"
+  puts "Original array after combine_arrays: #{array}"
+  puts "2-element array: #{array_2element}"
 
-  if array_2element.last != nil
-    step3 = add_last_array(combine_arrays(step2, 0, 1))
+  #binding.pry
+
+  # step2a =
+  # if array_2element.last != nil
+  #   step3 = add_last_array(combine_arrays(step2, 0, 1))
 
 end
 #merge_sort(scores)

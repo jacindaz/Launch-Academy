@@ -1,5 +1,7 @@
 require 'pry'
 scores = [75, 100, 85, 65, 84, 87, 95]
+reverse_sorted = [[5, 6], [3, 4], [1, 2]]
+reverse_sorted_original = [6,5,4,3,2,1]
 
 
 
@@ -36,7 +38,6 @@ def combine_arrays(array_of_arrays, index1, index2)
   #if array1[0] is bigger, put array2[0] in new array
   #then compare array1[0] and array2[2]
 
-  merged_array = []
   nested_array = []
   array1 = array_of_arrays[index1]
   array2 = array_of_arrays[index2]
@@ -44,7 +45,7 @@ def combine_arrays(array_of_arrays, index1, index2)
   #binding.pry
 
   while (array1[0] != nil) && (array2[0] != nil)
-    #puts "While loop, array1: #{array1}, array2: #{array2}"
+    puts "While loop, array1: #{array1}, array2: #{array2}"
     if array1[0] < array2[0]
       nested_array << array1[0]
       array1.shift
@@ -52,25 +53,32 @@ def combine_arrays(array_of_arrays, index1, index2)
       nested_array << array2[0]
       array2.shift
     end #end if/else statement
-    #puts "Nested array: #{nested_array}"
-    #puts nil
+    puts "Nested array: #{nested_array}"
+    puts nil
   end #end while loop
 
   if (array1[0] != nil)
+    puts "Array1: #{array1}"
     nested_array << array1
+    puts "nested array: #{nested_array}"
   elsif (array2[0] != nil)
+    puts "Array2: #{array2}"
     nested_array << array2
+    puts "nested array: #{nested_array}"
   end
 
-  merged_array << nested_array
-  flatten_array = merged_array.flatten
-  #puts "Exit if statement, merged array: #{flatten_array}"
+  array_of_arrays.shift.shift
+
+  flatten_array = nested_array.flatten
+  puts "Exit if statement, flatten: #{flatten_array}, array_of_arrays: #{array_of_arrays}"
+  #binding.pry
   return flatten_array
 end
 #combine_arrays([[75, 100], [65, 85]])
 #combine_arrays([[75, 100], [65, 85], [84, 87]])
 #combine_arrays([[75, 100], [65, 85], [84, 87], [20, 95]], 2, 3)
 #combine_arrays([[75, 100], [65, 85], [84, 87], [20]], 2, 3)
+combine_arrays(reverse_sorted, 0, 1)
 
 
 #step 1 of merge sort - returns an array of 2-element arrays-------------------------
@@ -112,10 +120,13 @@ def compare_2elements(array)
   end
 
   #puts "Final array: #{array_of_arrays}"
+  #binding.pry
+
   return array_of_arrays
 
 end
 #compare_2elements(scores)
+#compare_2elements(reverse_sorted_original)
 
 
 
