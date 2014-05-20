@@ -1,8 +1,7 @@
-require 'sinatra'
-require 'rubygems'
 require 'csv'
 
-#METHODS--------------------------------------------------------------
+
+
 def load_contacts(file_name)
   contacts = []
   CSV.foreach(file_name, headers: true, header_converters: :symbol) do |contact|
@@ -10,6 +9,8 @@ def load_contacts(file_name)
   end
   contacts
 end
+array = load_contacts('lackp_starting_rosters.csv')
+#puts array
 
 def team_simpson_slammers(array_of_hashes)
   final_array = []
@@ -21,6 +22,7 @@ def team_simpson_slammers(array_of_hashes)
   final_array
 end
 simpson_slammers = team_simpson_slammers(array)
+#puts simpson_slammers
 
 def team_jetson_jets(array_of_hashes)
   final_array = []
@@ -32,6 +34,8 @@ def team_jetson_jets(array_of_hashes)
   final_array
 end
 jetson_jets = team_jetson_jets(array)
+#puts jetson_jets
+
 
 def team_griffin_goats(array_of_hashes)
   final_array = []
@@ -57,36 +61,3 @@ def team_flineston_fire(array_of_hashes)
 end
 flineston_fire = team_flineston_fire(array)
 puts flineston_fire
-
-#ROUTES AND VIEWS------------------------------------------------------
-get('/styles.css'){ css :styles }
-
-@@contacts = load_contacts('lackp_starting_rosters.csv')
-
-get '/' do
-  @title = "Home Page"
-  erb :home
-end
-
-
-get '/team' do
-  @title = "Team Homepage"
-  erb :team
-end
-
-
-get '/allteams' do
-  @title = "All Team Info"
-  erb :allteams
-end
-
-
-
-#IF GET A 404 NOT FOUND ERROR--------------------------------------------
-not_found do
-  @title = "Oops! Jacinda created a bug."
-  erb :home
-end
-
-
-
