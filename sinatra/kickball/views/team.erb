@@ -8,10 +8,18 @@
 
   <body>
 
-    <h1>Welcome to the <%= @team %> team page!</h1>
+    <h1>Welcome to the <%= "#{@teamhash[0][:team]}" %> team page!</h1>
 
-      <%= @teamhash %>
+      <!--Displays the entire team array of hashes-->
+      <!--<%= @teamhash %>-->
 
+    <ul>
+      <% @teamhash.each do |nested_hash| %>
+        <li>
+          <%= "#{nested_hash[:first_name]} #{nested_hash[:last_name]} - #{nested_hash[:position]}" %>
+        </li>
+        <% end %>
+    </ul>
 
 
 
