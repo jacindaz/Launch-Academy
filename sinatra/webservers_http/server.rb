@@ -1,33 +1,25 @@
 require 'sinatra'
 require 'rubygems'
 
+puts "Got here"
 
-set :public_folder, File.dirname(__FILE__) + '/public'
+#ROUTES AND VIEWS-----------------------------------------
 
-  tasks = ['pay bills', 'buy milk', 'learn Ruby', 'take over the world']
-
-  html = '''
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <title>Basic HTML Page</title>
-      <link rel="stylesheet" href="home.css" />
-    </head>
-
-    <body>
-      <h1>TODO list</h1>
-
-      <ul>
-  '''
-
-  tasks.each do |task|
-    html += "<li>#{task}</li>"
-  end
-
-  html += '''
-      </ul>
-    </body>
-  </html>
-  '''
+get '/tasks/:task_name' do
+  @task = params[:task_name]
+  # The :task_name is available in our params hash
+  erb :show
 end
 
+get '/' do
+  @title = "Home Page"
+  "You've reached the home page!"
+end
+
+
+
+# #IF GET A 404 NOT FOUND ERROR--------------------------------------------
+# not_found do
+#   @title = "Oops! Jacinda created a bug."
+#   erb :index
+# end
