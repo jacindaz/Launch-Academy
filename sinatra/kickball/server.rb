@@ -1,25 +1,30 @@
 require 'sinatra'
 require 'rubygems'
+require 'csv'
 
-puts "Got here"
 
 #ROUTES AND VIEWS-----------------------------------------
 get('/styles.css'){ css :styles }
 
-get '/tasks/:task_name' do
-  @task = params[:task_name]
-  # The :task_name is available in our params hash
-  erb :show
-end
-
 get '/' do
   @title = "Home Page"
+
+  @contacts = load_contacts
+
   erb :home
 end
 
 get '/team' do
   @title = "Team Homepage"
+  @contacts = load_contacts
   erb :team
+end
+
+
+get '/allteams' do
+  @title = "All Team Info"
+  @contacts = load_contacts
+  erb :allteams
 end
 
 
@@ -30,3 +35,14 @@ not_found do
   erb :home
 end
 
+
+#METHODS--------------------------------------------------------------
+def load_contacts
+  contacts = []
+
+  CSV.foreach('lackp_starting_rosters.csv', headers: true, header_converters: :symbol) do |contact|
+    contacts << contact.to_hash
+  end
+
+  contacts
+end
