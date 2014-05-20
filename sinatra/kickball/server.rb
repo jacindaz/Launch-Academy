@@ -70,10 +70,16 @@ get '/team/:team_name' do
   @title = "Team Homepage"
   @team = params[:team_name]
 
-  @flinestone_fire = team_flinestone_fire(@@contacts)
-  @griffin_goats = team_griffin_goats(@@contacts)
-  @jetson_jets = team_jetson_jets(@@contacts)
-  @simpson_slammers = team_simpson_slammers(@@contacts)
+  case @team
+  when "flinestonefire"
+    @teamhash = team_flinestone_fire(@@contacts)
+  when "griffingoats"
+    @teamhash = team_griffin_goats(@@contacts)
+  when "jetsonjets"
+    @teamhash = team_jetson_jets(@@contacts)
+  when "simpsonslammers"
+    @teamhash = team_simpson_slammers(@@contacts)
+  end
 
   erb :team
 end
