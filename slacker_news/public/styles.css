@@ -76,6 +76,10 @@ a {
   text-decoration: none;
 }
 
-.comment-quantity a:hover {
+.hover a:hover {
   text-decoration:underline;
 }
+
+
+
+/**img is &#9650/
