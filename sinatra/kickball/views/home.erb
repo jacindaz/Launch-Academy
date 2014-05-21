@@ -12,21 +12,15 @@
 
 
     <ul>
-      <% @@contacts.each do |team_member| %>
 
-        <% if current_member != team_member[:team] %>
-
+      <% @team_names.each do |name| %>
         <li>
-          <a href="<%= url("/team/#{team_member[:team]}") %>">
-            <%= "#{team_member[:team]}" %>
+          <a href="<%= url("/team/#{name}") %>">
+            <%= "#{name}" %>
           </a>
         </li>
-
-        <% else %>
-        <%= current_member = team_member[:team]%>
-        <% end %>
-
       <% end %>
+
     </ul>
 
   </body>

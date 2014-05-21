@@ -24,6 +24,7 @@ end
 
 #VARIABLES--------------------------------------------------
 @@contacts = load_contacts('lackp_starting_rosters.csv')
+@teamhash = team_array(@@contacts, @team)
 
 
 #ROUTES AND VIEWS------------------------------------------------------
@@ -32,6 +33,14 @@ get('/styles.css'){ css :styles }
 
 get '/' do
   @title = "Home Page"
+
+  @team_names = []
+  @@contacts.each do |team_member_hash|
+    if !@team_names.include?(team_member_hash[:team])
+      @team_names << team_member_hash[:team]
+    end
+  end
+
   erb :home
 end
 
