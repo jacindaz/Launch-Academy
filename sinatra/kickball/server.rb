@@ -11,40 +11,10 @@ def load_contacts(file_name)
   contacts
 end
 
-def team_simpson_slammers(array_of_hashes)
+def team_array(array_of_hashes, team_name)
   final_array = []
   array_of_hashes.each do |nested_hash|
-    if nested_hash[:team] == "Simpson Slammers"
-      final_array << nested_hash
-    end
-  end
-  final_array
-end
-
-def team_jetson_jets(array_of_hashes)
-  final_array = []
-  array_of_hashes.each do |nested_hash|
-    if nested_hash[:team] == "Jetson Jets"
-      final_array << nested_hash
-    end
-  end
-  final_array
-end
-
-def team_griffin_goats(array_of_hashes)
-  final_array = []
-  array_of_hashes.each do |nested_hash|
-    if nested_hash[:team] == "Griffin Goats"
-      final_array << nested_hash
-    end
-  end
-  final_array
-end
-
-def team_flinestone_fire(array_of_hashes)
-  final_array = []
-  array_of_hashes.each do |nested_hash|
-    if nested_hash[:team] == "Flinestone Fire"
+    if nested_hash[:team] == team_name
       final_array << nested_hash
     end
   end
@@ -69,17 +39,7 @@ end
 get '/team/:team_name' do
   @title = "Team Homepage"
   @team = params[:team_name]
-
-  case @team
-  when "flinestonefire"
-    @teamhash = team_flinestone_fire(@@contacts)
-  when "griffingoats"
-    @teamhash = team_griffin_goats(@@contacts)
-  when "jetsonjets"
-    @teamhash = team_jetson_jets(@@contacts)
-  when "simpsonslammers"
-    @teamhash = team_simpson_slammers(@@contacts)
-  end
+  @teamhash = team_array(@@contacts, @team)
 
   erb :team
 end
