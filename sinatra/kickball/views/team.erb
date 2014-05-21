@@ -12,14 +12,27 @@
 
       <!--Displays the entire team array of hashes-->
       <!--<%= @teamhash %>-->
+      <br>
 
-    <ul>
+    <table>
+      <tr>
+        <th>Full Name</th>
+        <th>Position</th>
+      </tr>
       <% @teamhash.each do |nested_hash| %>
-        <li>
-          <%= "#{nested_hash[:first_name]} #{nested_hash[:last_name]} - #{nested_hash[:position]}" %>
-        </li>
+        <tr>
+          <td>
+          <%= "#{nested_hash[:first_name]} #{nested_hash[:last_name]}" %>
+          </td>
+          <td>
+          <%= "#{nested_hash[:position]}" %>
+          </td>
+        </tr>
         <% end %>
-    </ul>
+    </table>
+
+    <br><br>
+
 
     <a href="..">Go back home</a>
 
