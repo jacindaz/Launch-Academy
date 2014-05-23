@@ -1,52 +1,90 @@
+#solution that does not sort an array----------------------------------------------------------------------------------
+ 
 require 'pry'
-
-
+ 
 scores = [75, 100, 85, 65, 84, 87, 95]
 scores2 = [98, 32, 75, 60, 54, 88, 100, 27, 81]
 all_same = [1,2,3,4,5,6,7]
 reverse_sorted = [6,5,4,3,2,1]
 one_out_of_order = [5,6,7,8,9,10, 4]
 one_out_of_order_reverse = [10,5,6,7,8,9]
-
-
-
-def average(array)
-  length = array.length
+ 
+ 
+def avg_min_max(array)
+ 
+  min = array[0]
+  max = array[0]
   sum = 0
-
+ 
+  array.each do |num|
+    if num > max
+      max = num
+    elsif num < min
+      min = num
+    end
+  end
+ 
   array.each do |num|
     sum += num
   end
-
+ 
+  avg = sum / (array.length.to_f)
+ 
+  puts "For given array: #{array}"
+  puts "Min: #{min}, Max: #{max}, Average: #{avg}"
+ 
+end
+avg_min_max(reverse_sorted)
+ 
+ 
+ 
+#solution that sorts an array and returns first/last item, and average------------------------------------------------------
+require 'pry'
+ 
+scores = [75, 100, 85, 65, 84, 87, 95]
+scores2 = [98, 32, 75, 60, 54, 88, 100, 27, 81]
+all_same = [1,2,3,4,5,6,7]
+reverse_sorted = [6,5,4,3,2,1]
+one_out_of_order = [5,6,7,8,9,10, 4]
+one_out_of_order_reverse = [10,5,6,7,8,9]
+ 
+def average(array)
+  length = array.length
+  sum = 0
+ 
+  array.each do |num|
+    sum += num
+  end
+ 
   average = sum / (length.to_f)
   #puts "Average: #{average}"
-
+ 
   return average
 end
 #average(scores)
-
-
+ 
+ 
 def max(array)
   return array.pop
 end
-
-
+ 
+ 
 def min(array)
   return array.shift
 end
-
+ 
 def sort_swap_array(array)
   num1_index = 0
   num2_index = 1
-
+ 
   done = false
-
+ 
   while array[num2_index] != nil
     if array[num1_index] > array[num2_index]
       save_num1 = array[num1_index]
       array[num1_index] = array[num2_index]
       array[num2_index] = save_num1
-
+ 
       save_index1 = num1_index
       save_index2 = num2_index
       while (array[num1_index] < array[num1_index - 1]) && (num1_index > 0)
@@ -63,27 +101,27 @@ def sort_swap_array(array)
     end
       #puts "index1: #{num1_index}, index2: #{num2_index}, array: #{array}"
       #puts nil
-
+ 
       num1_index += 1
       num2_index += 1
-
+ 
   end
   #puts "Final sorted array: #{array}"
   return array
 end
-
+ 
 #sort_swap_array(scores)
-
-
+ 
+ 
 def avg_max_min(array)
   sorted_array = sort_swap_array(array)
   puts "For sorted array: #{sorted_array}"
-
+ 
   average = average(array)
   max = max(array)
   min = min(array)
-
-
+ 
+ 
   puts "Average: #{average}, Min: #{min}, Max: #{max}"
 end
 avg_max_min(reverse_sorted)
